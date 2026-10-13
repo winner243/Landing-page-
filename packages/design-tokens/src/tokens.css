@@ -1,0 +1,294 @@
+/*
+ * Landing Marketing Kit — Design Tokens (Tailwind CSS v4, CSS-first)
+ *
+ * Layer 1: semantic CSS variables (overridable by brand themes)
+ * Layer 2: @theme mapping — exposes utilities (bg-background, text-foreground…)
+ *
+ * Brand themes override ONLY semantic variables (.theme-* or [data-theme]),
+ * never component CSS.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Layer 1 — Semantic tokens (light / default)                        */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Brand — overridden per SaaS theme */
+  --lmk-brand-primary: oklch(0.55 0.2 265);
+  --lmk-brand-primary-hover: oklch(0.48 0.2 265);
+  --lmk-brand-primary-active: oklch(0.42 0.2 265);
+  --lmk-brand-secondary: oklch(0.65 0.15 265);
+  --lmk-brand-accent: oklch(0.75 0.15 85);
+
+  /* Surfaces */
+  --lmk-background: oklch(1 0 0);
+  --lmk-background-surface: oklch(0.985 0 0);
+  --lmk-background-muted: oklch(0.96 0 0);
+
+  /* Foreground (text) */
+  --lmk-foreground: oklch(0.15 0.01 265);
+  --lmk-foreground-muted: oklch(0.45 0.01 265);
+  --lmk-foreground-subtle: oklch(0.53 0.01 265);
+  --lmk-foreground-on-brand: oklch(1 0 0);
+
+  /* Interactive accent (= primary action color) */
+  --lmk-accent: var(--lmk-brand-primary);
+  --lmk-accent-hover: var(--lmk-brand-primary-hover);
+  --lmk-accent-active: var(--lmk-brand-primary-active);
+  --lmk-accent-foreground: var(--lmk-foreground-on-brand);
+
+  /* Semantic status */
+  --lmk-success: oklch(0.62 0.17 150);
+  --lmk-success-background: oklch(0.96 0.05 150);
+  --lmk-success-foreground: oklch(0.35 0.1 150);
+  --lmk-warning: oklch(0.75 0.16 75);
+  --lmk-warning-background: oklch(0.97 0.06 85);
+  --lmk-warning-foreground: oklch(0.45 0.1 75);
+  --lmk-error: oklch(0.58 0.21 27);
+  --lmk-error-background: oklch(0.97 0.04 25);
+  --lmk-error-foreground: oklch(0.4 0.17 27);
+
+  /* Borders */
+  --lmk-border: oklch(0.9 0.01 265);
+  --lmk-border-subtle: oklch(0.94 0.005 265);
+  --lmk-border-strong: oklch(0.63 0.01 265);
+
+  /* Focus */
+  --lmk-focus-ring: var(--lmk-brand-primary);
+
+  /* Typography */
+  --lmk-font-heading: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --lmk-font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --lmk-font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* Radius */
+  --lmk-radius-sm: 6px;
+  --lmk-radius-md: 8px;
+  --lmk-radius-lg: 12px;
+  --lmk-radius-xl: 16px;
+  --lmk-radius-2xl: 24px;
+  --lmk-radius-full: 9999px;
+
+  /* Shadows */
+  --lmk-shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+  --lmk-shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.07), 0 2px 4px -2px oklch(0 0 0 / 0.05);
+  --lmk-shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.08), 0 4px 6px -4px oklch(0 0 0 / 0.05);
+  --lmk-shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.05);
+
+  /* Motion */
+  --lmk-duration-fast: 150ms;
+  --lmk-duration-normal: 250ms;
+  --lmk-duration-slow: 400ms;
+  --lmk-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --lmk-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --lmk-ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Layout */
+  --lmk-container: 1200px;
+  --lmk-container-narrow: 760px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layer 1c — z-index (safe stacking order)                           */
+/* ------------------------------------------------------------------ */
+:root {
+  --lmk-z-dropdown: 1000;
+  --lmk-z-sticky: 1010;
+  --lmk-z-overlay: 1040;
+  --lmk-z-modal: 1050;
+  --lmk-z-popover: 1060;
+  --lmk-z-toast: 1070;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layer 1b — Dark mode (opt-in via .dark on <html>)                 */
+/* ------------------------------------------------------------------ */
+.dark {
+  --lmk-background: oklch(0.15 0.01 265);
+  --lmk-background-surface: oklch(0.19 0.01 265);
+  --lmk-background-muted: oklch(0.23 0.01 265);
+
+  --lmk-foreground: oklch(0.96 0 0);
+  --lmk-foreground-muted: oklch(0.7 0.01 265);
+  --lmk-foreground-subtle: oklch(0.62 0.01 265);
+
+  --lmk-border: oklch(0.3 0.01 265);
+  --lmk-border-subtle: oklch(0.26 0.01 265);
+  --lmk-border-strong: oklch(0.53 0.01 265);
+
+  --lmk-success-background: oklch(0.25 0.06 150);
+  --lmk-success-foreground: oklch(0.85 0.12 150);
+  --lmk-warning-background: oklch(0.27 0.06 85);
+  --lmk-warning-foreground: oklch(0.88 0.12 85);
+  --lmk-error-background: oklch(0.25 0.07 25);
+  --lmk-error-foreground: oklch(0.85 0.13 25);
+
+  --lmk-shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.3);
+  --lmk-shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.4);
+  --lmk-shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.45);
+  --lmk-shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.5);
+}
+
+/* ------------------------------------------------------------------ */
+/* Layer 2 — Tailwind v4 theme mapping                                */
+/* ------------------------------------------------------------------ */
+@theme inline {
+  /* Colors */
+  --color-brand-primary: var(--lmk-brand-primary);
+  --color-brand-primary-hover: var(--lmk-brand-primary-hover);
+  --color-brand-primary-active: var(--lmk-brand-primary-active);
+  --color-brand-secondary: var(--lmk-brand-secondary);
+  --color-brand-accent: var(--lmk-brand-accent);
+
+  --color-background: var(--lmk-background);
+  --color-surface: var(--lmk-background-surface);
+  --color-muted: var(--lmk-background-muted);
+
+  --color-foreground: var(--lmk-foreground);
+  --color-foreground-muted: var(--lmk-foreground-muted);
+  --color-foreground-subtle: var(--lmk-foreground-subtle);
+  --color-on-brand: var(--lmk-foreground-on-brand);
+
+  --color-accent: var(--lmk-accent);
+  --color-accent-hover: var(--lmk-accent-hover);
+  --color-accent-active: var(--lmk-accent-active);
+  --color-accent-foreground: var(--lmk-accent-foreground);
+
+  --color-success: var(--lmk-success);
+  --color-success-bg: var(--lmk-success-background);
+  --color-success-fg: var(--lmk-success-foreground);
+  --color-warning: var(--lmk-warning);
+  --color-warning-bg: var(--lmk-warning-background);
+  --color-warning-fg: var(--lmk-warning-foreground);
+  --color-error: var(--lmk-error);
+  --color-error-bg: var(--lmk-error-background);
+  --color-error-fg: var(--lmk-error-foreground);
+
+  --color-border: var(--lmk-border);
+  --color-border-subtle: var(--lmk-border-subtle);
+  --color-border-strong: var(--lmk-border-strong);
+  --color-focus-ring: var(--lmk-focus-ring);
+
+  /* Typography */
+  --font-heading: var(--lmk-font-heading);
+  --font-body: var(--lmk-font-body);
+  --font-mono: var(--lmk-font-mono);
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.55;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.6;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.5;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.4;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.3;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 1.2;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.15;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1.1;
+  --text-7xl: 4.5rem;
+  --text-7xl--line-height: 1.05;
+
+  /* Spacing */
+  --spacing: 0.25rem;
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+
+  /* Radius */
+  --radius-sm: var(--lmk-radius-sm);
+  --radius-md: var(--lmk-radius-md);
+  --radius-lg: var(--lmk-radius-lg);
+  --radius-xl: var(--lmk-radius-xl);
+  --radius-2xl: var(--lmk-radius-2xl);
+
+  /* Shadows */
+  --shadow-sm: var(--lmk-shadow-sm);
+  --shadow-md: var(--lmk-shadow-md);
+  --shadow-lg: var(--lmk-shadow-lg);
+  --shadow-xl: var(--lmk-shadow-xl);
+
+  /* Motion */
+  --default-transition-duration: var(--lmk-duration-normal);
+  --default-transition-timing-function: var(--lmk-ease);
+
+  /* Z-index scale */
+  --z-index-dropdown: var(--lmk-z-dropdown);
+  --z-index-sticky: var(--lmk-z-sticky);
+  --z-index-overlay: var(--lmk-z-overlay);
+  --z-index-modal: var(--lmk-z-modal);
+  --z-index-popover: var(--lmk-z-popover);
+  --z-index-toast: var(--lmk-z-toast);
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion keyframes                                                    */
+/* ------------------------------------------------------------------ */
+@keyframes lmk-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base layer — readability + a11y defaults                           */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    font-family: var(--lmk-font-body);
+    color: var(--lmk-foreground);
+    background: var(--lmk-background);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--lmk-focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--lmk-radius-sm);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--lmk-font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

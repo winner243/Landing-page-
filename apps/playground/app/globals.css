@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "@landing/design-tokens/css";
+
+/* Workspace packages live outside this app's tree — declare them as sources.
+ * Paths are relative to THIS file (apps/playground/app/globals.css), so the
+ * repo root is three levels up. Verify after changes: the built CSS must
+ * contain component-only classes (e.g. `.mb-10`), not just app classes. */
+@source "../../../packages/ui-core/src";
+@source "../../../packages/marketing-components/src";
+@source "../../../packages/design-tokens/src";

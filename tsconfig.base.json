@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "paths": {
+      "@landing/design-tokens": ["./packages/design-tokens/src/index.ts"],
+      "@landing/themes": ["./packages/themes/src/index.ts"],
+      "@landing/ui-core": ["./packages/ui-core/src/index.ts"],
+      "@landing/marketing": ["./packages/marketing-components/src/index.ts"],
+      "@landing/patterns": ["./packages/conversion-patterns/src/index.tsx"],
+      "@landing/copywriting": ["./packages/copywriting/src/index.ts"],
+      "@landing/analytics": ["./packages/analytics/src/index.ts"],
+      "@landing/experimentation": ["./packages/experimentation/src/index.ts"],
+      "@landing/seo": ["./packages/seo/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "coverage", ".next"]
+}

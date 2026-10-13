@@ -1,0 +1,25 @@
+{
+    "name":  "@landing/marketing",
+    "version":  "0.1.0",
+    "private":  true,
+    "type":  "module",
+    "main":  "./src/index.ts",
+    "types":  "./src/index.ts",
+    "exports":  {
+                    ".":  "./src/index.ts"
+                },
+    "scripts":  {
+                    "build":  "tsc -p tsconfig.json",
+                    "typecheck":  "tsc -p tsconfig.json"
+                },
+    "dependencies":  {
+                         "@landing/design-tokens":  "workspace:*",
+                         "@landing/ui-core":  "workspace:*",
+                         "@landing/analytics":  "workspace:*",
+                         "class-variance-authority":  "^0.7.1"
+                     },
+    "peerDependencies":  {
+                             "react":  "^19.0.0",
+                             "react-dom":  "^19.0.0"
+                         }
+}
