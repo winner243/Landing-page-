@@ -1,63 +1,66 @@
 /**
- * Provider-agnostic event taxonomy for the Landing Marketing Kit.
+ * @landing/analytics — provider-agnostic analytics for the Landing
+ * Marketing Kit (Roadmap 4.1).
  *
- * Components emit typed events through `track()`; consumers plug a
- * destination (GA4, Plausible, PostHog…) in Phase 4. Nothing here
- * imports a vendor SDK — the kit stays analytics-neutral.
+ * Components emit typed events through `track()`; destinations plug in as
+ * optional adapters. Nothing here imports a vendor SDK. Tracking is
+ * consent-gated and disabled by default.
  */
 
-export interface CtaEvent {
-  type: "cta_click";
-  /** Stable identifier for the CTA instance (e.g. "hero_primary"). */
-  trackId: string;
-  /** CTA label as rendered. */
-  label: string;
-  /** Destination href (no query secrets). */
-  href?: string;
-  /** Location group: where the CTA appears. */
-  location: "header" | "hero" | "section" | "footer" | "sticky" | "inline";
-  /** Experiment variant in force, if any. */
-  variant?: string;
-}
+export * from "./events.ts";
+export * from "./consent.ts";
+export * from "./client.ts";
+export * from "./adapters/index.ts";
 
-export interface SectionViewEvent {
-  type: "section_view";
-  section: string;
-  variant?: string;
-}
+import {
+  createAnalytics,
+  type AnalyticsAdapter,
+  type AnalyticsClient,
+} from "./client.ts";
+import type { LandingEvent } from "./events.ts";
 
-export interface ScrollDepthEvent {
-  type: "scroll_depth";
-  /** Milestone: 25 | 50 | 75 | 100. */
-  depth: 25 | 50 | 75 | 100;
-}
-
-export type LandingEvent =
-  | CtaEvent
-  | SectionViewEvent
-  | ScrollDepthEvent;
-
+/** Legacy handler signature (pre-4.1) — a raw `(event) => void`. */
 export type AnalyticsHandler = (event: LandingEvent) => void;
 
-let handler: AnalyticsHandler | null = null;
+/** Internal adapter id used by `setAnalyticsHandler`. */
+const LEGACY_HANDLER_ID = "@landing/legacy-handler";
+
+let defaultClient: AnalyticsClient | null = null;
 
 /**
- * Registers the destination handler (consent must be checked by caller).
- * Passing null disables tracking.
+ * The default (lazily-created) client used by the module-level `track()`
+ * and `setAnalyticsHandler()`. Call `resetAnalytics()` to restore a fresh
+ * instance (tests / init boundaries).
  */
-export function setAnalyticsHandler(next: AnalyticsHandler | null): void {
-  handler = next;
+export function getAnalytics(): AnalyticsClient {
+  if (!defaultClient) defaultClient = createAnalytics();
+  return defaultClient;
+}
+
+/** Discards the default client — next access creates a fresh one. */
+export function resetAnalytics(): void {
+  defaultClient = null;
 }
 
 /**
- * Emits an event to the registered handler. Silently no-ops when no
- * handler is set — components never crash on missing analytics.
+ * Emits a typed event through the default client. No-ops when tracking is
+ * disabled or the required consent is not granted — privacy-first by
+ * default and never throws.
  */
 export function track(event: LandingEvent): void {
-  if (!handler) return;
-  try {
-    handler(event);
-  } catch {
-    // Analytics must never break the UI.
+  getAnalytics().track(event);
+}
+
+/**
+ * Legacy registration — wraps a raw handler in an adapter on the default
+ * client. Passing `null` removes it. Kept for the pre-4.1 contract;
+ * prefer `getAnalytics().registerAdapter(...)` for new code.
+ */
+export function setAnalyticsHandler(next: AnalyticsHandler | null): void {
+  const client = getAnalytics();
+  client.removeAdapter(LEGACY_HANDLER_ID);
+  if (next) {
+    const adapter: AnalyticsAdapter = { id: LEGACY_HANDLER_ID, send: next };
+    client.registerAdapter(adapter);
   }
 }

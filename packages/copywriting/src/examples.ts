@@ -527,12 +527,503 @@ export const premiumExample: LandingContent = {
   },
 };
 
+/* ------------------------------------------------------------------ */
+/* saas-b2c example — single value prop, benefit-led, fast signup      */
+/* ------------------------------------------------------------------ */
+export const saasB2cExample: LandingContent = {
+  nav: {
+    brandName: "Swiftly",
+    links: [
+      { label: "How it works", href: "/how" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Help", href: "/help" },
+    ],
+    cta: { label: "Get the app", href: "/download", trackId: "nav_primary" },
+  },
+  hero: {
+    badge: "Free for 30 days",
+    headline: "Money habits that stick without the spreadsheet",
+    description:
+      "Swiftly turns your accounts into a simple weekly plan, so saving happens automatically.",
+    primaryCta: { label: "Create free account", href: "/signup", trackId: "hero_primary" },
+    proofText: "No card required",
+  },
+  features: [
+    {
+      title: "Automatic weekly plan",
+      description: "See what is safe to spend this week, updated every morning.",
+    },
+    {
+      title: "Goals that save for you",
+      description: "Set a goal and Swiftly moves small amounts until it is funded.",
+    },
+    {
+      title: "Gentle reminders",
+      description: "One nudge before a bill is due, never a wall of notifications.",
+    },
+  ],
+  benefits: [
+    { title: "Know what you can spend", description: "One number, refreshed daily." },
+    { title: "Save without thinking", description: "Small transfers add up quietly." },
+    { title: "Cancel in two taps", description: "Your data leaves with you." },
+  ],
+  trust: {
+    items: [
+      { label: "Bank-level encryption" },
+      { label: "Read-only account access" },
+      { label: "GDPR compliant" },
+    ],
+  },
+  plans: [
+    {
+      name: "Free",
+      price: { amount: 0, currency: "$", interval: "month" },
+      description: "Core planning and one savings goal.",
+      features: ["Weekly plan", "One savings goal"],
+      cta: { label: "Start free", href: "/signup", trackId: "pricing_free" },
+    },
+    {
+      name: "Plus",
+      price: { amount: 6, currency: "$", interval: "month" },
+      description: "Unlimited goals and shared household budgets.",
+      features: ["Unlimited goals", "Shared budgets", "Bill calendar"],
+      cta: { label: "Try Plus free", href: "/signup?plan=plus", trackId: "pricing_plus" },
+      highlighted: true,
+      badge: "Best value",
+    },
+  ],
+  faq: [
+    {
+      question: "Is Swiftly safe to connect to my bank?",
+      answer:
+        "We use read-only connections through regulated providers, so Swiftly can never move money out of your accounts.",
+      category: "Security",
+    },
+    {
+      question: "What happens after the free trial?",
+      answer:
+        "You keep the free plan. We only charge if you choose Plus, and we email you before any trial ends.",
+      category: "Pricing",
+    },
+  ],
+  stats: [
+    { value: "2 min", label: "to set up your first weekly plan", source: "Sample data — replace with a verified metric" },
+    { value: "0 ads", label: "we never sell your data", source: "Product commitment" },
+  ],
+  cta: { label: "Start your free trial", href: "/signup", trackId: "band_primary" },
+  footer: {
+    brandName: "Swiftly",
+    tagline: "A calmer way to handle money, one week at a time.",
+    columns: [
+      {
+        title: "Support",
+        links: [
+          { label: "Help centre", href: "/help" },
+          { label: "Contact", href: "/contact" },
+        ],
+      },
+    ],
+    legalLinks: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+    ],
+    copyright: "© 2026 Swiftly Ltd.",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* ai-saas example — trust-first, transparency about AI capabilities   */
+/* ------------------------------------------------------------------ */
+export const aiSaasExample: LandingContent = {
+  nav: {
+    brandName: "Lumen",
+    links: [
+      { label: "Platform", href: "/platform" },
+      { label: "Docs", href: "/docs" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Sign in", href: "/login" },
+    ],
+    cta: { label: "Get API key", href: "/signup", trackId: "nav_primary" },
+  },
+  hero: {
+    badge: "SOC 2 Type II certified",
+    headline: "Ship AI features your users can actually trust",
+    description:
+      "Lumen gives your product evaluation, tracing and guardrails, so AI answers stay accurate and auditable.",
+    primaryCta: { label: "Get API key", href: "/signup", trackId: "hero_primary" },
+    secondaryCta: { label: "Read the docs", href: "/docs", trackId: "hero_secondary" },
+    proofText: "Used in production by 120+ product teams",
+    proofCount: 120,
+  },
+  features: [
+    {
+      title: "Evaluation on every release",
+      description: "Run your golden dataset on each deploy and block regressions.",
+    },
+    {
+      title: "Traces you can read",
+      description: "Follow every prompt, tool call and token in one timeline.",
+    },
+    {
+      title: "Guardrails as code",
+      description: "Define refusal rules and schema checks in version control.",
+    },
+  ],
+  testimonials: [
+    {
+      quote:
+        "Evaluation runs became part of our pipeline. We now ship model changes with the same confidence as code changes.",
+      author: { name: "Diego Alvarez", role: "Staff Engineer", company: "Quarry Labs", verified: true },
+      rating: 5,
+    },
+  ],
+  trust: {
+    items: [
+      { label: "SOC 2 Type II certified" },
+      { label: "Data never used for training" },
+      { label: "GDPR compliant" },
+    ],
+  },
+  faq: [
+    {
+      question: "Do you train models on our data?",
+      answer:
+        "No. Traces and datasets stay in your workspace and are never used for training, by us or any model provider.",
+      category: "Privacy",
+    },
+    {
+      question: "Can we self-host Lumen?",
+      answer:
+        "Yes. The Enterprise plan ships as a container in your own cloud, with the same API as our managed version.",
+      category: "Deployment",
+    },
+  ],
+  cta: { label: "Create free account", href: "/signup", trackId: "band_primary" },
+  footer: {
+    brandName: "Lumen",
+    tagline: "Evaluation, tracing and guardrails for AI product teams.",
+    columns: [
+      {
+        title: "Developers",
+        links: [
+          { label: "Documentation", href: "/docs" },
+          { label: "API reference", href: "/docs/api" },
+        ],
+      },
+    ],
+    legalLinks: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+    ],
+    copyright: "© 2026 Lumen Systems Inc.",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* pro-tool example — feature-oriented, workflow-focused              */
+/* ------------------------------------------------------------------ */
+export const proToolExample: LandingContent = {
+  nav: {
+    brandName: "Craft",
+    links: [
+      { label: "Features", href: "/features" },
+      { label: "Docs", href: "/docs" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Sign in", href: "/login" },
+    ],
+    cta: { label: "Start free trial", href: "/signup", trackId: "nav_primary" },
+  },
+  hero: {
+    headline: "The workflow tool your team actually wants to use",
+    description:
+      "Craft replaces fragmented spreadsheets and chat threads with one workspace for planning, tracking and shipping.",
+    primaryCta: { label: "Start free trial", href: "/signup", trackId: "hero_primary" },
+    secondaryCta: { label: "View docs", href: "/docs", trackId: "hero_secondary" },
+    proofText: "Used by 500+ engineering teams",
+    proofCount: 500,
+  },
+  features: [
+    {
+      title: "Kanban boards",
+      description: "Visualise work, limit work in progress, ship faster.",
+    },
+    {
+      title: "Git integration",
+      description: "Link branches and pull requests to tasks automatically.",
+    },
+    {
+      title: "Custom workflows",
+      description: "Adapt the tool to your process, not the other way around.",
+    },
+  ],
+  benefits: [
+    { title: "One place for everything", description: "Stop switching between five tools." },
+    { title: "Built for teams", description: "Comments, mentions and shared views." },
+  ],
+  trust: {
+    items: [
+      { label: "SOC 2 Type II" },
+      { label: "99.9% uptime SLA" },
+      { label: "Daily backups" },
+    ],
+  },
+  plans: [
+    {
+      name: "Free",
+      price: { amount: 0, currency: "$", interval: "month" },
+      description: "For small teams getting started.",
+      features: ["Kanban boards", "Git integration"],
+      cta: { label: "Start free", href: "/signup", trackId: "pricing_free" },
+    },
+    {
+      name: "Team",
+      price: { amount: 9, currency: "$", interval: "month" },
+      description: "For growing teams.",
+      features: ["Custom workflows", "Advanced reporting", "Priority support"],
+      cta: { label: "Start trial", href: "/signup?plan=team", trackId: "pricing_team" },
+      highlighted: true,
+      badge: "Most popular",
+    },
+  ],
+  faq: [
+    {
+      question: "Can I export my data?",
+      answer:
+        "Yes. All data can be exported as CSV or JSON at any time, no strings attached.",
+      category: "Data",
+    },
+  ],
+  cta: { label: "Start your free trial", href: "/signup", trackId: "band_primary" },
+  footer: {
+    brandName: "Craft",
+    tagline: "A workflow tool your team actually wants to use.",
+    columns: [
+      {
+        title: "Product",
+        links: [
+          { label: "Features", href: "/features" },
+          { label: "Changelog", href: "/changelog" },
+        ],
+      },
+    ],
+    legalLinks: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+    ],
+    copyright: "© 2026 Craft Inc.",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* marketplace example — two-sided, liquidity signals                  */
+/* ------------------------------------------------------------------ */
+export const marketplaceExample: LandingContent = {
+  nav: {
+    brandName: "Bazaar",
+    links: [
+      { label: "For buyers", href: "/buy" },
+      { label: "For sellers", href: "/sell" },
+      { label: "How it works", href: "/how" },
+    ],
+    cta: { label: "Browse marketplace", href: "/browse", trackId: "nav_primary" },
+  },
+  hero: {
+    badge: "10,000+ active listings",
+    headline: "Buy and sell anything, safely and quickly",
+    description:
+      "Bazaar connects buyers and sellers with verified identities, secure payments and dispute resolution built in.",
+    primaryCta: { label: "Browse listings", href: "/browse", trackId: "hero_primary" },
+    secondaryCta: { label: "Sell something", href: "/sell", trackId: "hero_secondary" },
+    proofText: "10,000+ active listings",
+    proofCount: 10000,
+  },
+  features: [
+    {
+      title: "Verified identities",
+      description: "Every buyer and seller is identity-checked before transacting.",
+    },
+    {
+      title: "Secure payments",
+      description: "Payments held in escrow until the buyer confirms receipt.",
+    },
+    {
+      title: "Dispute resolution",
+      description: "Dedicated support team resolves issues quickly and fairly.",
+    },
+  ],
+  logoCloud: {
+    title: "Trusted by",
+    logos: [
+      { name: "Verified by Stripe" },
+      { name: "Identity checked" },
+      { name: "Secure payments" },
+    ],
+  },
+  stats: [
+    { value: "10,000+", label: "active listings", source: "Sample data — replace with a verified metric" },
+    { value: "500,000+", label: "transactions completed", source: "Sample data — replace with a verified metric" },
+  ],
+  testimonials: [
+    {
+      quote:
+        "Sold my vintage camera in under an hour. The buyer was verified and the payment was instant.",
+      author: { name: "Maya Chen", role: "Seller", company: "Bazaar user", verified: true },
+      rating: 5,
+    },
+  ],
+  cta: { label: "Browse marketplace", href: "/browse", trackId: "band_primary" },
+  footer: {
+    brandName: "Bazaar",
+    tagline: "Buy and sell anything, safely and quickly.",
+    columns: [
+      {
+        title: "For buyers",
+        links: [{ label: "Browse", href: "/browse" }, { label: "Help", href: "/help" }],
+      },
+      {
+        title: "For sellers",
+        links: [{ label: "List item", href: "/sell" }, { label: "Fees", href: "/fees" }],
+      },
+    ],
+    legalLinks: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+    ],
+    copyright: "© 2026 Bazaar Inc.",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* complex example — multi-feature, enterprise, comprehensive evidence */
+/* ------------------------------------------------------------------ */
+export const complexExample: LandingContent = {
+  nav: {
+    brandName: "Nexus Platform",
+    links: [
+      { label: "Platform", href: "/platform" },
+      { label: "Solutions", href: "/solutions" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Docs", href: "/docs" },
+      { label: "Sign in", href: "/login" },
+    ],
+    cta: { label: "Contact sales", href: "/contact", trackId: "nav_primary" },
+  },
+  hero: {
+    badge: "SOC 2 Type II certified",
+    headline: "One platform for your entire infrastructure",
+    description:
+      "Nexus unifies compute, storage, networking and security in a single control plane, so your team can focus on shipping, not ops.",
+    primaryCta: { label: "Contact sales", href: "/contact", trackId: "hero_primary" },
+    secondaryCta: { label: "View docs", href: "/docs", trackId: "hero_secondary" },
+    proofText: "Trusted by 400+ enterprises",
+    proofCount: 400,
+  },
+  features: [
+    {
+      title: "Unified control plane",
+      description: "Manage compute, storage and networking from one console.",
+    },
+    {
+      title: "Multi-cloud support",
+      description: "Deploy across AWS, Azure and GCP with consistent tooling.",
+    },
+    {
+      title: "Zero-trust security",
+      description: "Identity-based access with full audit logging.",
+    },
+  ],
+  testimonials: [
+    {
+      quote:
+        "Nexus cut our infrastructure costs by 40% while improving reliability. The migration was smoother than expected.",
+      author: { name: "Sarah Okonkwo", role: "VP of Engineering", company: "Global Logistics", verified: true },
+      rating: 5,
+      metric: { value: "40%", label: "infrastructure cost reduction" },
+    },
+  ],
+  trust: {
+    items: [
+      { label: "SOC 2 Type II certified" },
+      { label: "ISO 27001 certified" },
+      { label: "99.99% uptime SLA" },
+    ],
+  },
+  faq: [
+    {
+      question: "How long does migration take?",
+      answer:
+        "Most migrations complete within 4-6 weeks using our guided migration toolkit and expert support.",
+      category: "Migration",
+    },
+    {
+      question: "Do you support multi-cloud deployments?",
+      answer:
+        "Yes. Nexus supports AWS, Azure and GCP with consistent networking and security policies across all providers.",
+      category: "Infrastructure",
+    },
+  ],
+  plans: [
+    {
+      name: "Starter",
+      price: { amount: 499, currency: "$", interval: "month" },
+      description: "For small teams getting started.",
+      features: ["Unified control plane", "Community support"],
+      cta: { label: "Start trial", href: "/signup?plan=starter", trackId: "pricing_starter" },
+    },
+    {
+      name: "Enterprise",
+      price: { amount: 4999, currency: "$", interval: "month" },
+      description: "For large organisations with complex needs.",
+      features: ["Multi-cloud support", "Zero-trust security", "Dedicated support", "Custom SLA"],
+      cta: { label: "Contact sales", href: "/contact", trackId: "pricing_enterprise" },
+      highlighted: true,
+      badge: "Most popular",
+    },
+  ],
+  stats: [
+    { value: "400+", label: "enterprises trust Nexus", source: "Sample data — replace with a verified metric" },
+    { value: "99.99%", label: "uptime SLA", source: "Service level agreement" },
+  ],
+  cta: { label: "Contact sales", href: "/contact", trackId: "band_primary" },
+  footer: {
+    brandName: "Nexus Platform",
+    tagline: "One platform for your entire infrastructure.",
+    columns: [
+      {
+        title: "Product",
+        links: [
+          { label: "Platform", href: "/platform" },
+          { label: "Pricing", href: "/pricing" },
+        ],
+      },
+      {
+        title: "Company",
+        links: [
+          { label: "About", href: "/about" },
+          { label: "Contact", href: "/contact" },
+        ],
+      },
+    ],
+    legalLinks: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+      { label: "DPA", href: "/dpa" },
+    ],
+    copyright: "© 2026 Nexus Platform Inc.",
+  },
+};
+
 /** All example sets, keyed by positioning (used by tests + playground). */
 export const contentExamples = {
   b2b: b2bExample,
   b2c: b2cExample,
   ai: aiExample,
   premium: premiumExample,
+  saasB2c: saasB2cExample,
+  aiSaaS: aiSaasExample,
+  proTool: proToolExample,
+  marketplace: marketplaceExample,
+  complex: complexExample,
 } as const;
 
 export type ContentExampleKey = keyof typeof contentExamples;

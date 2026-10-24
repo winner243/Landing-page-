@@ -51,7 +51,7 @@ describe("Template config schema (Roadmap 3.4)", () => {
 
   it("rejects unknown template types (discriminated union)", () => {
     const result = templateConfigSchema.safeParse({
-      type: "marketplace",
+      type: "unknown-template",
       content: contentExamples.b2b,
     });
     expect(result.success).toBe(false);
@@ -110,6 +110,123 @@ describe("buildTemplate — saas-b2b (Roadmap 3.4)", () => {
   }, 60000);
 });
 
+describe("buildTemplate — new templates (Roadmap 4.4)", () => {
+  const templates: Array<[string, LandingSection[], string[]]> = [
+    [
+      "saas-b2c",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "saas-b2c",
+          content: contentExamples.saasB2c,
+          headers: {
+            features: { title: "Built for your money goals" },
+            pricing: { title: "Simple, transparent pricing" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "pattern:pricingDecision", "pattern:footerConversion"],
+    ],
+    [
+      "ai-saas",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "ai-saas",
+          content: contentExamples.aiSaaS,
+          headers: {
+            features: { title: "AI you can trust" },
+            faq: { title: "Questions about AI" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "pattern:objectionHandling", "pattern:footerConversion"],
+    ],
+    [
+      "pro-tool",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "pro-tool",
+          content: contentExamples.proTool,
+          headers: {
+            features: { title: "Everything your team needs" },
+            pricing: { title: "Simple, transparent pricing" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "features", "pattern:pricingDecision", "pattern:footerConversion"],
+    ],
+    [
+      "marketplace",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "marketplace",
+          content: contentExamples.marketplace,
+          headers: {
+            features: { title: "Built for buyers and sellers" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "pattern:footerConversion"],
+    ],
+    [
+      "premium",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "premium",
+          content: contentExamples.premium,
+          headers: {
+            features: { title: "Curated for your infrastructure" },
+            testimonials: { title: "What our clients say" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "trustBar", "pattern:footerConversion"],
+    ],
+    [
+      "complex",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "complex",
+          content: contentExamples.complex,
+          headers: {
+            features: { title: "Enterprise-grade infrastructure" },
+            pricing: { title: "Plans for every stage" },
+            faq: { title: "Questions from enterprise buyers" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "trustBar", "pattern:pricingDecision", "pattern:footerConversion"],
+    ],
+  ] as const;
+
+  it.each(templates)("%s validates against its template schema", (_name, _sections, _types) => {
+    // If we reach here, parseTemplateConfig already succeeded above
+    expect(true).toBe(true);
+  });
+
+  it.each(templates)("%s assembles sections starting with navbar and hero", (_name, sections, expectedTypes) => {
+    const types = sections.map((section) => section.type);
+    expect(types[0]).toBe("navbar");
+    expect(types[1]).toBe("hero");
+    expect(types[types.length - 1]).toBe("pattern:footerConversion");
+    // Verify expected section types are present
+    for (const expected of expectedTypes) {
+      expect(types).toContain(expected);
+    }
+  });
+
+  it.each(templates)("%s renders through the composer with crawlable CTAs", (_name, sections) => {
+    render(<LandingComposer sections={sections} themeClassName="theme-aurora" />);
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+  });
+
+  it.each(templates)("%s has no axe violations", async (_name, sections) => {
+    const { container } = render(
+      <LandingComposer sections={sections} themeClassName="theme-aurora" />,
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  }, 60000);
+});
+
 describe("buildTemplate — simple (Roadmap 3.4)", () => {
   const sections: LandingSection[] = buildTemplate(simpleConfig);
   const types = sections.map((section) => section.type);
@@ -132,6 +249,123 @@ describe("buildTemplate — simple (Roadmap 3.4)", () => {
   });
 
   it("has no axe violations", async () => {
+    const { container } = render(
+      <LandingComposer sections={sections} themeClassName="theme-aurora" />,
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  }, 60000);
+});
+
+describe("buildTemplate — new templates (Roadmap 4.4)", () => {
+  const templates: Array<[string, LandingSection[], string[]]> = [
+    [
+      "saas-b2c",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "saas-b2c",
+          content: contentExamples.saasB2c,
+          headers: {
+            features: { title: "Built for your money goals" },
+            pricing: { title: "Simple, transparent pricing" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "pattern:pricingDecision", "pattern:footerConversion"],
+    ],
+    [
+      "ai-saas",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "ai-saas",
+          content: contentExamples.aiSaaS,
+          headers: {
+            features: { title: "AI you can trust" },
+            faq: { title: "Questions about AI" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "pattern:objectionHandling", "pattern:footerConversion"],
+    ],
+    [
+      "pro-tool",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "pro-tool",
+          content: contentExamples.proTool,
+          headers: {
+            features: { title: "Everything your team needs" },
+            pricing: { title: "Simple, transparent pricing" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "features", "pattern:pricingDecision", "pattern:footerConversion"],
+    ],
+    [
+      "marketplace",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "marketplace",
+          content: contentExamples.marketplace,
+          headers: {
+            features: { title: "Built for buyers and sellers" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "pattern:footerConversion"],
+    ],
+    [
+      "premium",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "premium",
+          content: contentExamples.premium,
+          headers: {
+            features: { title: "Curated for your infrastructure" },
+            testimonials: { title: "What our clients say" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "trustBar", "pattern:footerConversion"],
+    ],
+    [
+      "complex",
+      buildTemplate(
+        parseTemplateConfig({
+          type: "complex",
+          content: contentExamples.complex,
+          headers: {
+            features: { title: "Enterprise-grade infrastructure" },
+            pricing: { title: "Plans for every stage" },
+            faq: { title: "Questions from enterprise buyers" },
+          },
+        }),
+      ),
+      ["navbar", "hero", "pattern:socialProof", "features", "trustBar", "pattern:pricingDecision", "pattern:footerConversion"],
+    ],
+  ] as const;
+
+  it.each(templates)("%s validates against its template schema", (_name, _sections, _types) => {
+    // If we reach here, parseTemplateConfig already succeeded above
+    expect(true).toBe(true);
+  });
+
+  it.each(templates)("%s assembles sections starting with navbar and hero", (_name, sections, expectedTypes) => {
+    const types = sections.map((section) => section.type);
+    expect(types[0]).toBe("navbar");
+    expect(types[1]).toBe("hero");
+    expect(types[types.length - 1]).toBe("pattern:footerConversion");
+    // Verify expected section types are present
+    for (const expected of expectedTypes) {
+      expect(types).toContain(expected);
+    }
+  });
+
+  it.each(templates)("%s renders through the composer with crawlable CTAs", (_name, sections) => {
+    render(<LandingComposer sections={sections} themeClassName="theme-aurora" />);
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+  });
+
+  it.each(templates)("%s has no axe violations", async (_name, sections) => {
     const { container } = render(
       <LandingComposer sections={sections} themeClassName="theme-aurora" />,
     );

@@ -1,7 +1,13 @@
 import * as React from "react";
 import type {
+  AiSaasTemplateConfig,
+  ComplexTemplateConfig,
   LandingContent,
+  MarketplaceTemplateConfig,
+  PremiumTemplateConfig,
+  ProToolTemplateConfig,
   SaasB2bTemplateConfig,
+  SaasB2cTemplateConfig,
   SimpleTemplateConfig,
   TemplateConfig,
   TemplateHeaders,
@@ -182,6 +188,123 @@ function simpleSections(config: SimpleTemplateConfig): LandingSection[] {
   return sections;
 }
 
+/** B2C: benefit-led, minimal middle, proof and pricing optional. */
+function saasB2cSections(config: SaasB2cTemplateConfig): LandingSection[] {
+  const { content, headers } = config;
+  const sections = openingSections(content, headers);
+
+  if (content.plans) {
+    sections.push({
+      type: "pattern:pricingDecision",
+      props: {
+        grid: { header: headers?.pricing, plans: content.plans },
+        ...(content.faq ? { faq: { items: content.faq, header: headers?.faq } } : {}),
+      },
+    });
+  }
+
+  if (content.trust) {
+    sections.push({ type: "trustBar", props: { items: content.trust.items } });
+  }
+
+  sections.push(closingSections(content));
+  return sections;
+}
+
+/** AI SaaS: trust-first, transparency about capabilities and data. */
+function aiSaasSections(config: AiSaasTemplateConfig): LandingSection[] {
+  const { content, headers } = config;
+  const sections = openingSections(content, headers);
+
+  sections.push({
+    type: "pattern:objectionHandling",
+    props: {
+      faq: { items: content.faq, header: headers?.faq },
+      reversal: { items: content.trust.items },
+    },
+  });
+
+  sections.push(closingSections(content));
+  return sections;
+}
+
+/** Pro-tool: feature-oriented, workflow-focused. */
+function proToolSections(config: ProToolTemplateConfig): LandingSection[] {
+  const { content, headers } = config;
+  const sections = openingSections(content, headers);
+
+  if (content.plans) {
+    sections.push({
+      type: "pattern:pricingDecision",
+      props: {
+        grid: { header: headers?.pricing, plans: content.plans },
+        ...(content.faq ? { faq: { items: content.faq, header: headers?.faq } } : {}),
+      },
+    });
+  }
+
+  if (content.trust) {
+    sections.push({ type: "trustBar", props: { items: content.trust.items } });
+  }
+
+  sections.push(closingSections(content));
+  return sections;
+}
+
+/** Marketplace: two-sided, liquidity signals. Hero first, trust signals after. */
+function marketplaceSections(config: MarketplaceTemplateConfig): LandingSection[] {
+  const { content, headers } = config;
+  const sections = openingSections(content, headers);
+
+  if (content.logoCloud || content.stats || content.testimonials) {
+    sections.push({
+      type: "pattern:socialProof",
+      props: {
+        logos: content.logoCloud ? { items: content.logoCloud.logos, title: content.logoCloud.title } : undefined,
+        stats: content.stats ? { items: content.stats } : undefined,
+        testimonials: content.testimonials ? { items: content.testimonials, header: headers?.testimonials } : undefined,
+      },
+    });
+  }
+
+  sections.push(closingSections(content));
+  return sections;
+}
+
+/** Premium: minimal, curated testimonials, exclusivity. */
+function premiumSections(config: PremiumTemplateConfig): LandingSection[] {
+  const { content, headers } = config;
+  const sections = openingSections(content, headers);
+
+  if (content.trust) {
+    sections.push({ type: "trustBar", props: { items: content.trust.items } });
+  }
+
+  sections.push(closingSections(content));
+  return sections;
+}
+
+/** Complex: multi-feature, enterprise, comprehensive evidence. */
+function complexSections(config: ComplexTemplateConfig): LandingSection[] {
+  const { content, headers } = config;
+  const sections = openingSections(content, headers);
+
+  if (content.trust) {
+    sections.push({ type: "trustBar", props: { items: content.trust.items } });
+  }
+
+  sections.push({
+    type: "pattern:pricingDecision",
+    props: {
+      grid: { header: headers?.pricing, plans: content.plans },
+      faq: { items: content.faq, header: headers?.faq },
+    },
+  });
+
+  sections.push(closingSections(content));
+  return sections;
+}
+
 /**
  * Assembles a validated template config into sections for LandingComposer.
  * Exhaustive over the template union — adding a type here is a type error
@@ -193,5 +316,17 @@ export function buildTemplate(config: TemplateConfig): LandingSection[] {
       return saasB2bSections(config);
     case "simple":
       return simpleSections(config);
+    case "saas-b2c":
+      return saasB2cSections(config);
+    case "ai-saas":
+      return aiSaasSections(config);
+    case "pro-tool":
+      return proToolSections(config);
+    case "marketplace":
+      return marketplaceSections(config);
+    case "premium":
+      return premiumSections(config);
+    case "complex":
+      return complexSections(config);
   }
 }

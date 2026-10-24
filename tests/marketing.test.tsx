@@ -2,7 +2,12 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, cleanup, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "jest-axe";
-import { setAnalyticsHandler, track, type LandingEvent } from "@landing/analytics";
+import {
+  setAnalyticsHandler,
+  track,
+  getAnalytics,
+  type LandingEvent,
+} from "@landing/analytics";
 import {
   Hero,
   HeroBadge,
@@ -137,6 +142,9 @@ describe("CTA tracking (provider-agnostic)", () => {
     const user = userEvent.setup();
     const events: LandingEvent[] = [];
     setAnalyticsHandler((e) => events.push(e));
+    // Privacy-first (Roadmap 4.1): analytics consent must be granted before
+    // an event is delivered.
+    getAnalytics().setConsent({ analytics: "granted" });
 
     render(
       <Cta

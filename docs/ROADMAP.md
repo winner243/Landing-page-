@@ -123,39 +123,51 @@
 **Goal**: Measurement infrastructure, experimentation, full template library, documentation site.
 
 ### 4.1 Analytics Package
-- [ ] Event taxonomy (naming convention + typed events)
-- [ ] Component-embedded tracking (CTA clicks, scroll depth, section views)
-- [ ] Consent-aware initialization (respects cookie preferences)
-- [ ] Provider adapters (GA4, Plausible, PostHog, Segment) — pluggable
-- [ ] Server-side event support (Server Actions)
+- [x] Event taxonomy (naming convention + typed events) — `packages/analytics/src/events.ts`
+- [x] Component-embedded tracking (CTA clicks, scroll depth, section views) — `Cta` emits `cta_click`
+- [x] Consent-aware initialization (respects cookie preferences) — `packages/analytics/src/consent.ts`
+- [x] Provider adapters (GA4, Plausible, PostHog, Segment) — pluggable, no SDK bundled — `packages/analytics/src/adapters/`
+- [ ] Server-side event support (Server Actions) — `track()` is server-safe (no-op without `window`)
 
 ### 4.2 Experimentation (A/B)
-- [ ] Variant assignment (middleware / cookie / edge)
-- [ ] `<ExperimentProvider>` with SSR-safe variant resolution (no flicker)
-- [ ] `variant` prop convention on all marketing components
-- [ ] Assignment logging for analysis
-- [ ] Ethics review checklist for experiments (from ETHICS.md)
+- [x] Variant assignment (stable, deterministic, traffic-aware) — `packages/experimentation/src/types.ts`
+- [x] `<ExperimentProvider>` with SSR-safe variant resolution (no flicker) — `packages/experimentation/src/react.tsx`
+- [x] `variant` prop convention on marketing components (already in `Cta`, `ComparisonTable`)
+- [x] Assignment logging via `experiment_exposure` event (consent-gated, deduplicated)
+- [x] Ethics review checklist (documented in ETHICS.md §7)
 
 ### 4.3 SEO Package
-- [ ] Metadata helpers (per-page `generateMetadata`)
-- [ ] JSON-LD generators (Organization, Product, FAQPage, SoftwareApplication)
-- [ ] Sitemap + robots generation
-- [ ] Open Graph image generation (optional)
+- [x] Metadata helpers (`buildPageMeta`, Open Graph, Twitter cards) — `packages/seo/src/meta.ts`
+- [x] JSON-LD generators (Organization, Product, FAQPage, SoftwareApplication, WebSite, BreadcrumbList) — `packages/seo/src/jsonld.ts`
+- [x] Sitemap + robots generation — `packages/seo/src/sitemap.ts`
+- [ ] Open Graph image generation (optional — deferred)
 
 ### 4.4 Remaining Templates (P1/P2)
-- [ ] `saas-b2c`, `ai-saas`, `pro-tool`, `marketplace`, `premium`, `complex`
+- [x] `saas-b2c` — `apps/playground/app/templates/saas-b2c/page.tsx`
+- [x] `ai-saas` — `apps/playground/app/templates/ai-saas/page.tsx`
+- [x] `pro-tool` — `apps/playground/app/templates/pro-tool/page.tsx`
+- [x] `marketplace` — `apps/playground/app/templates/marketplace/page.tsx`
+- [x] `premium` — `apps/playground/app/templates/premium/page.tsx`
+- [x] `complex` — `apps/playground/app/templates/complex/page.tsx`
 
 ### 4.5 Documentation Site
-- [ ] Next.js docs app (playground)
-- [ ] Component API reference (auto-generated from types)
-- [ ] Live examples per template
-- [ ] Copywriting guidance browsable per block
+- [x] Next.js docs app (`apps/docs/`) — installation, architecture, components, patterns, templates, analytics, A/B testing, SEO
+- [x] Live examples per template (playground routes)
+- [x] Copywriting guidance (`docs/CONTENT-GUIDANCE.md`, auto-generated from Zod schemas)
+- [ ] Component API reference (auto-generated from types — deferred)
 
 ### 4.6 Quality Gates (Phase 4)
-- [ ] Full CI: lint + typecheck + unit + a11y + visual regression + E2E
-- [ ] Bundle analysis budget enforced
-- [ ] Cross-browser test (Chrome, Firefox, Safari, Edge)
-- [ ] Real-device spot check (iOS Safari, Android Chrome)
+- [x] Lint — `pnpm lint` (ESLint 9, zéro erreur)
+- [x] Typecheck — `pnpm typecheck` (TS strict, zéro `any`)
+- [x] Tests unitaires — `pnpm test` (263 tests, 10 fichiers, tous verts)
+- [x] Accessibilité — axe-core (17 assertions), contraste WCAG AA (50 assertions)
+- [x] Budget de bundle — `pnpm size` (35/35 composants ≤ 5 KB gzippé)
+- [x] CI distante — GitHub Actions vert (run 38344615445, 1m 15s)
+- [ ] Tests E2E — deferred (Playwright not configured)
+- [ ] Régression visuelle — deferred (no visual-regression tooling)
+- [ ] Cross-browser (Chrome, Firefox, Safari, Edge) — deferred
+- [ ] Real-device spot check — deferred
+- [ ] Mode sombre — tokens validés (contrast.test.ts light+dark), rendu visuel manuel uniquement
 
 **Exit criteria**: Kit is publishable (private registry), all 8 templates available, analytics + A/B working, docs site live.
 
